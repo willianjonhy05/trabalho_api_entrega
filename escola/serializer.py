@@ -1,4 +1,4 @@
-from .models import Aluno, Curso, Idioma
+from .models import Aluno, Professor, Idioma
 from rest_framework import serializers
 
 
@@ -7,9 +7,9 @@ class AlunoSerializer(serializers.ModelSerializer):
         model = Aluno
         fields = '__all__'
 
-class CursoSerializer(serializers.ModelSerializer):
+class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Curso
+        model = Professor
         fields = '__all__'
 
 class IdiomaSerializer(serializers.ModelSerializer):
