@@ -153,9 +153,9 @@ class Aula(models.Model):
         return self.disciplina
 
 
-
 class FrequenciaEscolar(models.Model):
     aula = models.OneToOneField(Aula, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     presenca = models.BooleanField(default=True)
     
     def __str__(self):
