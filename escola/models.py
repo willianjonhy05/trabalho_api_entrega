@@ -145,6 +145,7 @@ class BoletimEscolar(models.Model):
             
 
 class Aula(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     disciplina = models.OneToOneField(Disciplina, on_delete=models.CASCADE)
     data = models.DateField("Data da Aula")
     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
