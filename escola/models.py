@@ -23,7 +23,7 @@ class Idioma(models.Model):
 
     class Meta:
         verbose_name = 'Idioma'
-        verbose_name_plural = 'Idioma'
+        verbose_name_plural = 'Idiomas'
 
 
 class Professor(models.Model):
