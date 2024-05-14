@@ -158,7 +158,7 @@ class Aula(models.Model):
     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
     
     def __str__(self):
-        return self.disciplina
+        return str(self.disciplina)
     class Meta:
         verbose_name = 'Aula'
         verbose_name_plural = 'Aulas'
@@ -169,7 +169,7 @@ class FrequenciaEscolar(models.Model):
     presenca = models.BooleanField(default=True)
     
     def __str__(self):
-        return self.aula
+        return str(self.aula)
 
     class Meta:
         verbose_name = 'Frequencia Escolar'
@@ -194,25 +194,10 @@ class Matricula(models.Model):
 	    null=False)
     
     def __str__(self):
-        return self.aluno
+        return self.aluno.nome 
     
     class Meta:
         verbose_name = 'Matrícula'
         verbose_name_plural = 'Matrículas'
         
-    def gerar_codigo_matricula():
-        letras = string.ascii_uppercase
-        numeros = ''.join(random.choices(string.digits, k=4))
-        codigo = ''.join(random.choices(letras, k=2)) + numeros
-        return codigo
-    
-    def save(self, *args, **kwargs):
-        if not self.codigo:
-            while True:
-                codigo = self.gerar_codigo_matricula()
-                if not Matricula.objects.filter(codigo=codigo).exists():
-                    self.codigo = codigo
-                    break
-        super().save(*args, **kwargs)
-    
     
