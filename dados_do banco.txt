@@ -1,0 +1,15 @@
+Usuario: gestoradmin
+banco de dados: escolalinguasdb
+Senha: senha123
+
+
+
+
+
+CREATE ROLE gestoradmin WITH LOGIN SUPERUSER CREATEDB PASSWORD 'senha123';
+
+CREATE DATABASE escolalinguasdb WITH OWNER gestoradmin;
+
+GRANT ALL PRIVILEGES ON DATABASE escolalinguasdb TO gestoradmin;
+
+
