@@ -151,12 +151,13 @@ class Aula(models.Model):
     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
     
     def __str__(self):
-        return f'Aula de {self.disciplina} - {self.data}'
+        return f'Aula de {self.disciplina} em {self.data}'
 
 
 
 class FrequenciaEscolar(models.Model):
     aula = models.OneToOneField(Aula, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     presenca = models.BooleanField(default=True)
     
     def __str__(self):
