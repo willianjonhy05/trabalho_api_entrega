@@ -81,6 +81,8 @@ class Curso(models.Model):
     descricao = models.TextField(max_length=500)
     turma = models.CharField(max_length=1, choices=TURMA, blank=False, 
 	    null=False)
+    nivel = models.CharField(max_length=1, default='A', choices=NIVEL, blank=False, 
+	    null=False)
     carga_horaria = models.PositiveIntegerField()
     
     def __str__(self):
@@ -109,11 +111,46 @@ class Curso(models.Model):
         super().save(*args, **kwargs)
         
 
+# class Disciplina(models.Model):
+#     nome = models.CharField(max_length=30)
+#     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+#     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+#     ementa = models.TextField("Ementa da Disciplina")
+    
+#     def __str__(self):
+#         return self.nome
+    
+
+# class Aula(models.Model):
+#     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+#     data = models.DateField("Data da Aula")
+#     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
+
+
+# class BoletimEscolar(models.Model):
+#     ...
+    
+# class FrequenciaEscolar(models.Model):
+#     ...
+
+
 
 class Matricula(models.Model):
+    STATUS = (
+        ('I', 'Ativa - Iniciando'),
+        ('A', 'Ativa - Em andamento'),
+        ('C', 'Desativada - Concluída'),
+        ('S', 'Desativada - Suspensa'),
+    )
+    
+    
     codigo = models.CharField(max_length=8, unique=True, editable=False)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    # boletim = models.OneToOneField(BoletimEscolar)
+    # frequencia = models.OneToOneField(FrequenciaEscolar)
+    status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
+	    null=False)
     
     def __str__(self):
         return str(self.codigo)
@@ -136,4 +173,5 @@ class Matricula(models.Model):
                     self.codigo = codigo
                     break
         super().save(*args, **kwargs)
+    
     
