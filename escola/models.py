@@ -111,7 +111,7 @@ class Curso(models.Model):
 
 
 class Matricula(models.Model):
-    codigo = models.CharField(max_length=8, unique=True, default=gerar_codigo, editable=False)
+    codigo = models.CharField(max_length=8, unique=True, editable=False)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     
@@ -122,7 +122,7 @@ class Matricula(models.Model):
         verbose_name = 'Matrícula'
         verbose_name_plural = 'Matrículas'
         
-    def gerar_codigo_curso():
+    def gerar_codigo_matricula():
         letras = string.ascii_uppercase
         numeros = ''.join(random.choices(string.digits, k=4))
         codigo = ''.join(random.choices(letras, k=2)) + numeros
@@ -131,7 +131,7 @@ class Matricula(models.Model):
     def save(self, *args, **kwargs):
         if not self.codigo:
             while True:
-                codigo = self.gerar_codigo_curso()
+                codigo = self.gerar_codigo_matricula()
                 if not Matricula.objects.filter(codigo=codigo).exists():
                     self.codigo = codigo
                     break

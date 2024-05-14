@@ -43,3 +43,4 @@ def gerar_cursos():
 
 
 gerar_cursos()
+print("Trabalho encerrado com sucesso!")
