@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Professor, Aluno, Idioma
+from .models import *
 
 
 class AlunoAdmin(admin.ModelAdmin):
@@ -19,3 +19,6 @@ class IdiomaAdmin(admin.ModelAdmin):
     
     
 admin.site.register(Idioma, IdiomaAdmin)
+
+admin.site.register(Matricula)
+admin.site.register(Curso)
