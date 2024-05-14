@@ -120,6 +120,10 @@ class Disciplina(models.Model):
     def __str__(self):
         return self.nome
     
+    class Meta:
+        verbose_name = 'Disciplina'
+        verbose_name_plural = 'Disciplinas'
+    
 class BoletimEscolar(models.Model):
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
@@ -142,6 +146,10 @@ class BoletimEscolar(models.Model):
     
     def __str__(self):
         return f'Boletim do {self.aluno.nome}'
+    
+    class Meta:
+        verbose_name = 'BoletimEscolar'
+        verbose_name_plural = 'Boletins Escolares'
             
 
 class Aula(models.Model):
@@ -151,7 +159,9 @@ class Aula(models.Model):
     
     def __str__(self):
         return self.disciplina
-
+    class Meta:
+        verbose_name = 'Aula'
+        verbose_name_plural = 'Aulas'
 
 class FrequenciaEscolar(models.Model):
     aula = models.OneToOneField(Aula, on_delete=models.CASCADE)
@@ -161,6 +171,9 @@ class FrequenciaEscolar(models.Model):
     def __str__(self):
         return self.aula
 
+    class Meta:
+        verbose_name = 'Frequencia Escolar'
+        verbose_name_plural = 'Frequencias Escolares'
 
 
 class Matricula(models.Model):
