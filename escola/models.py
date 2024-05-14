@@ -150,7 +150,7 @@ class Aula(models.Model):
     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
     
     def __str__(self):
-        return f'Aula de {self.disciplina} - {self.data}'
+        return self.disciplina
 
 
 
@@ -181,7 +181,7 @@ class Matricula(models.Model):
 	    null=False)
     
     def __str__(self):
-        return str(self.codigo)
+        return self.aluno
     
     class Meta:
         verbose_name = 'Matrícula'

@@ -17,8 +17,14 @@ admin.site.register(Professor, ProfessorAdmin)
 class IdiomaAdmin(admin.ModelAdmin):
     list_display = ['codigo', 'nome']
     
+
+    
+    
     
 admin.site.register(Idioma, IdiomaAdmin)
-
+admin.site.register(Disciplina)
+admin.site.register(BoletimEscolar)
+admin.site.register(Aula)
+admin.site.register(FrequenciaEscolar)
 admin.site.register(Matricula)
 admin.site.register(Curso)
