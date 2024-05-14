@@ -1,0 +1,9 @@
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=escolalinguasdb
+DB_USER=gestoradmin
+DB_PASSWORD=senha123
+DB_HOST=localhost
+DB_PORT=5432
+SECRET_KEY=2!590k=))i111o_2%c6r+e(92lz7ydhw&g=!9)x41(c4wgw7d1
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1,216.39.249.41,meusite.com.br
