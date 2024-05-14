@@ -111,27 +111,55 @@ class Curso(models.Model):
         super().save(*args, **kwargs)
         
 
-# class Disciplina(models.Model):
-#     nome = models.CharField(max_length=30)
-#     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-#     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-#     ementa = models.TextField("Ementa da Disciplina")
+class Disciplina(models.Model):
+    nome = models.CharField(max_length=30)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    ementa = models.TextField("Ementa da Disciplina")
     
-#     def __str__(self):
-#         return self.nome
+    def __str__(self):
+        return self.nome
     
-
-# class Aula(models.Model):
-#     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
-#     data = models.DateField("Data da Aula")
-#     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
-
-
-# class BoletimEscolar(models.Model):
-#     ...
+class BoletimEscolar(models.Model):
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    nota_um = models.DecimalField("Nota 1", blank=True, null=True, max_digits=5, decimal_places=2)
+    nota_dois = models.DecimalField("Nota 2", blank=True, null=True, max_digits=5, decimal_places=2)
+    nota_tres = models.DecimalField("Nota 3", blank=True, null=True, max_digits=5, decimal_places=2)
+    nota_quatro = models.DecimalField("Nota 4", blank=True, null=True, max_digits=5, decimal_places=2)
     
-# class FrequenciaEscolar(models.Model):
-#     ...
+    @property
+    def media(self):
+        notas = [self.nota_um, self.nota_dois, self.nota_tres, self.nota_quatro]
+        if notas:
+            zeros = notas.count(0)
+            nao_zeros = len(notas) - zeros
+            total = sum(notas)
+            media = total / nao_zeros
+            return "{:.2f}".format(media) 
+        else:
+            return None
+    
+    def __str__(self):
+        return f'Boletim do {self.aluno.nome}'
+            
+
+class Aula(models.Model):
+    disciplina = models.OneToOneField(Disciplina, on_delete=models.CASCADE)
+    data = models.DateField("Data da Aula")
+    sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
+    
+    def __str__(self):
+        return f'Aula de {self.disciplina} - {self.data}'
+
+
+
+class FrequenciaEscolar(models.Model):
+    aula = models.OneToOneField(Aula, on_delete=models.CASCADE)
+    presenca = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.aula
 
 
 
@@ -147,8 +175,8 @@ class Matricula(models.Model):
     codigo = models.CharField(max_length=8, unique=True, editable=False)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    # boletim = models.OneToOneField(BoletimEscolar)
-    # frequencia = models.OneToOneField(FrequenciaEscolar)
+    boletim = models.OneToOneField(BoletimEscolar, on_delete=models.CASCADE, blank=True, null=True)
+    frequencia = models.OneToOneField(FrequenciaEscolar, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
 	    null=False)
     
