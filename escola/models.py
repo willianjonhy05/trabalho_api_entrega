@@ -114,8 +114,8 @@ class Curso(models.Model):
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=30)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, blank=True, null=True)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, blank=True, null=True)
     ementa = models.TextField("Ementa da Disciplina")
     
     def __str__(self):
@@ -127,7 +127,7 @@ class Disciplina(models.Model):
             
 
 class Aula(models.Model):
-    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, blank=True, null=True)
     data = models.DateField("Data da Aula")
     sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
     observacoes = models.TextField("Observações sobre a aula", default='Aula Expositiva')
@@ -149,10 +149,10 @@ class Matricula(models.Model):
         ('S', 'Desativada - Suspensa'),
     )
     
-    
+    # id = models.AutoField(primary_key=True)
     codigo = models.CharField(max_length=6, editable=False, unique=True)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
 	    null=False)
     
@@ -180,9 +180,9 @@ class Matricula(models.Model):
         
         
 class FrequenciaEscolar(models.Model):
-    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE)
-    aula = models.ForeignKey(Aula, on_delete=models.CASCADE)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE, blank=True, null=True)
+    aula = models.ForeignKey(Aula, on_delete=models.CASCADE, blank=True, null=True)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     presenca = models.BooleanField(default=True)
     
     def __str__(self):
@@ -193,9 +193,9 @@ class FrequenciaEscolar(models.Model):
         verbose_name_plural = 'Frequencias Escolares'
         
 class BoletimEscolar(models.Model):
-    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE)
-    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE, blank=True, null=True)
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, blank=True, null=True)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     nota_um = models.DecimalField("Nota 1", blank=True, null=True, max_digits=5, decimal_places=2)
     nota_dois = models.DecimalField("Nota 2", blank=True, null=True, max_digits=5, decimal_places=2)
     nota_tres = models.DecimalField("Nota 3", blank=True, null=True, max_digits=5, decimal_places=2)
