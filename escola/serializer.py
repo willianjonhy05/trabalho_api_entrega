@@ -1,8 +1,8 @@
-from .models import Aluno, Professor, Idioma, Curso, Disciplina, BoletimEscolar, Aula, FrequenciaEscolar, Matricula
+from .models import *
 from rest_framework import serializers
 from django.urls import reverse
 
-
+############# Serializers referente ao Aluno ######################
 class AlunoSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
     class Meta:
@@ -19,12 +19,34 @@ class AlunoDetail(serializers.ModelSerializer):
     class Meta:
         model = Aluno
         fields = ['nome', 'cpf', 'rg', 'data_nascimento', 'email', 'telefone', 'idade']
+        
+    def get_link(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(reverse('matriculas-do-aluno', kwargs={'pk': obj.pk}))
+        return None
+
+
+############# Serializers referente ao Professor ######################
 
 class ProfessorSerializer(serializers.ModelSerializer):
+    matriculas = serializers.SerializerMethodField()
+    class Meta:
+        link = serializers.SerializerMethodField()
+        model = Professor
+        fields = ['nome', 'email', 'telefone', 'link']
+        
+    def get_link(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(reverse('professor-detail', kwargs={'pk': obj.pk}))
+        return None
+    
+class ProfessorDetail(serializers.ModelSerializer):
     class Meta:
         model = Professor
-        fields = '__all__'
-
+        fields = ['nome', 'cpf', 'rg', 'data_nascimento', 'email', 'telefone', 'idade']
+        
 class IdiomaSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
     class Meta:
@@ -73,10 +95,11 @@ class FrequenciaEscolarSerilizer(serializers.ModelSerializer):
         model = FrequenciaEscolar
         fields = '__all__'
         
-        
+############# Serializers da Matrícula ###################### 
 
-class MatriculaSerilizer(serializers.ModelSerializer):
-    
+from .models import Matricula
+
+class MatriculaSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Matricula
         fields = '__all__'

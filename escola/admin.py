@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from escola.models import Professor, Aluno, Idioma, Disciplina, BoletimEscolar, FrequenciaEscolar, Aula, Curso
 
 
 class AlunoAdmin(admin.ModelAdmin):
@@ -18,13 +18,11 @@ class IdiomaAdmin(admin.ModelAdmin):
     list_display = ['codigo', 'nome']
     
 
-    
-    
-    
+
 admin.site.register(Idioma, IdiomaAdmin)
 admin.site.register(Disciplina)
 admin.site.register(BoletimEscolar)
 admin.site.register(Aula)
 admin.site.register(FrequenciaEscolar)
-admin.site.register(Matricula)
+
 admin.site.register(Curso)

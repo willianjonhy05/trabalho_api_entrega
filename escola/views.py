@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Aluno, Professor, Idioma
+from .models import *
 from .serializer import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 # Create your views here.
-
-
+############# Rotas da Página Principal ######################
 @api_view(["GET"])
 def getRoutes(request):
     routes = {
@@ -18,6 +17,8 @@ def getRoutes(request):
 }
     return Response(routes)
 
+############# Views referente ao Aluno ######################
+
 class AlunoListCreate(generics.ListCreateAPIView):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
@@ -26,6 +27,17 @@ class AlunoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Aluno.objects.all()
     serializer_class = AlunoDetail
 
+class MatriculasDoAluno(generics.ListAPIView):
+    queryset = Matricula.objects.all()
+    serializer_class = MatriculaSerializer
+    
+    def get_queryset(self):
+        aluno_pk = self.kwargs['pk']
+        aluno = Aluno.objects.get(id=aluno_pk)
+        matriculas = Matricula.objects.filter(aluno=aluno)
+        return matriculas
+
+############# Views referente ao Professor ######################
 
 class ProfessorListCreate(generics.ListCreateAPIView):
     queryset = Professor.objects.all()
@@ -33,7 +45,7 @@ class ProfessorListCreate(generics.ListCreateAPIView):
 
 class ProfessorRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
+    serializer_class = ProfessorDetail
 
 class IdiomaListCreate(generics.ListCreateAPIView):
     queryset = Idioma.objects.all()
@@ -42,3 +54,6 @@ class IdiomaListCreate(generics.ListCreateAPIView):
 class IdiomaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Idioma.objects.all()
     serializer_class = IdiomaSerializer
+
+
+############# Views referente ao Aluno ######################

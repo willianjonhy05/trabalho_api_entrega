@@ -7,6 +7,7 @@ urlpatterns = [
     path('idioma/detail/<int:pk>/', IdiomaRetrieveUpdateDestroy.as_view(), name='idioma-detail'),
     path('idioma/', IdiomaListCreate.as_view(), name='idioma-create-list'),
     path('alunos/detail/<int:pk>/', AlunoRetrieveUpdateDestroy.as_view(), name='aluno-detail'),
+    path('alunos/detail/<int:pk>/matriculas/', MatriculasDoAluno.as_view(), name='matriculas-do-aluno'),
     path('alunos/', AlunoListCreate.as_view(), name='alunos-create-list'),
     path('', getRoutes, name='get-routes'),    
     

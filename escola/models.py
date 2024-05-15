@@ -176,22 +176,7 @@ class FrequenciaEscolar(models.Model):
         verbose_name_plural = 'Frequencias Escolares'
 
 
-class Matricula(models.Model):
-    STATUS = (
-        ('I', 'Ativa - Iniciando'),
-        ('A', 'Ativa - Em andamento'),
-        ('C', 'Desativada - Concluída'),
-        ('S', 'Desativada - Suspensa'),
-    )
-    
-    
-    codigo = models.CharField(max_length=8, unique=True, editable=False)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    boletim = models.OneToOneField(BoletimEscolar, on_delete=models.CASCADE, blank=True, null=True)
-    frequencia = models.OneToOneField(FrequenciaEscolar, on_delete=models.CASCADE, blank=True, null=True)
-    status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
-	    null=False)
+############# Views referente ao Aluno ######################
     
     def __str__(self):
         return self.aluno.nome 
