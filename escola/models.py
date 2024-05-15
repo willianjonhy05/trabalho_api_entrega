@@ -2,6 +2,7 @@ from django.db import models
 import random
 import string
 from datetime import date
+import uuid
 
 
 class Aluno(models.Model):
@@ -123,8 +124,76 @@ class Disciplina(models.Model):
     class Meta:
         verbose_name = 'Disciplina'
         verbose_name_plural = 'Disciplinas'
+            
+
+class Aula(models.Model):
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    data = models.DateField("Data da Aula")
+    sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
+    observacoes = models.TextField("Observações sobre a aula", default='Aula Expositiva')
     
+    def __str__(self):
+        return f"Aula de {self.disciplina} do dia {self.data.strftime('%d/%m/%Y')}"
+    
+    class Meta:
+        verbose_name = 'Aula'
+        verbose_name_plural = 'Aulas'
+
+
+
+class Matricula(models.Model):
+    STATUS = (
+        ('I', 'Ativa - Iniciando'),
+        ('A', 'Ativa - Em andamento'),
+        ('C', 'Desativada - Concluída'),
+        ('S', 'Desativada - Suspensa'),
+    )
+    
+    
+    codigo = models.CharField(max_length=6, editable=False, unique=True)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
+	    null=False)
+    
+    def __str__(self):
+        return f"Matrícula de {self.aluno} no {self.curso}"
+    
+    class Meta:
+        verbose_name = 'Matrícula'
+        verbose_name_plural = 'Matrículas'
+        
+    def gerar_codigo_matricula(self):
+        letras = ''.join(random.choices(string.ascii_uppercase, k=2))
+        numeros = ''.join(random.choices(string.digits, k=4))
+        codigo = letras + numeros
+        return codigo
+        
+    def save(self, *args, **kwargs):
+        if not self.codigo:
+            while True:
+                codigo = self.gerar_codigo_matricula()
+                if not Matricula.objects.filter(codigo=codigo).exists():
+                    self.codigo = codigo
+                    break
+        super().save(*args, **kwargs)
+        
+        
+class FrequenciaEscolar(models.Model):
+    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE)
+    aula = models.ForeignKey(Aula, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    presenca = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"Frequência do {self.aluno.nome}"
+
+    class Meta:
+        verbose_name = 'Frequencia Escolar'
+        verbose_name_plural = 'Frequencias Escolares'
+        
 class BoletimEscolar(models.Model):
+    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     nota_um = models.DecimalField("Nota 1", blank=True, null=True, max_digits=5, decimal_places=2)
@@ -150,54 +219,3 @@ class BoletimEscolar(models.Model):
     class Meta:
         verbose_name = 'BoletimEscolar'
         verbose_name_plural = 'Boletins Escolares'
-            
-
-class Aula(models.Model):
-    disciplina = models.OneToOneField(Disciplina, on_delete=models.CASCADE)
-    data = models.DateField("Data da Aula")
-    sala = models.CharField(max_length=5, verbose_name="Sala de Aula")
-    
-    def __str__(self):
-        return str(self.disciplina)
-    class Meta:
-        verbose_name = 'Aula'
-        verbose_name_plural = 'Aulas'
-
-class FrequenciaEscolar(models.Model):
-    aula = models.OneToOneField(Aula, on_delete=models.CASCADE)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
-    presenca = models.BooleanField(default=True)
-    
-    def __str__(self):
-        return str(self.aula)
-
-    class Meta:
-        verbose_name = 'Frequencia Escolar'
-        verbose_name_plural = 'Frequencias Escolares'
-
-class Matricula(models.Model):
-    STATUS = (
-        ('I', 'Ativa - Iniciando'),
-        ('A', 'Ativa - Em andamento'),
-        ('C', 'Desativada - Concluída'),
-        ('S', 'Desativada - Suspensa'),
-    )
-    
-    
-    codigo = models.CharField(max_length=8, unique=True, editable=False)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    boletim = models.OneToOneField(BoletimEscolar, on_delete=models.CASCADE, blank=True, null=True)
-    frequencia = models.OneToOneField(FrequenciaEscolar, on_delete=models.CASCADE, blank=True, null=True)
-    status = models.CharField(max_length=1, choices=STATUS, default='I', blank=False, 
-	    null=False)
-    
-    def __str__(self):
-        return self.aluno
-    
-    class Meta:
-        verbose_name = 'Matrícula'
-        verbose_name_plural = 'Matrículas'
-        
-        
-    

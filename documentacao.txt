@@ -1,0 +1,50 @@
+---- BÁSICOS ----
+
+1 - Alunos
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
+
+2 - Professores
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
+
+3 - Idiomas
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
+
+4 - Cursos
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
+
+5 - Aulas
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
+
+6 - Disciplina
+    - Criar 
+    - Listar 
+    - Detalhar 
+    - Atualizar
+    - Deletar 
+
+7 - Matrícula
+
+8 - Boletim
+
+9 - Frequencia
+
