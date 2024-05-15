@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Aluno, Professor, Idioma
-from .serializer import AlunoSerializer, ProfessorSerializer, IdiomaSerializer
+from .serializer import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -24,7 +24,7 @@ class AlunoListCreate(generics.ListCreateAPIView):
 
 class AlunoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Aluno.objects.all()
-    serializer_class = AlunoSerializer
+    serializer_class = AlunoDetail
 
 
 class ProfessorListCreate(generics.ListCreateAPIView):
