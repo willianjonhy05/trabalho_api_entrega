@@ -5,6 +5,7 @@ urlpatterns = [
     path('', getRoutes, name='get-routes'),
     path('professor/', ProfessorListCreate.as_view(), name='professor-create-list'),
     path('professor/detail/<int:pk>/', ProfessorRetrieveUpdateDestroy.as_view(), name='professor-detail'),
+    path('professor/detail/<int:pk>/disciplinas/', DisciplinaPorProfessor.as_view(), name='professor-disciplinas'),
     
     path('cursos/', CursoListCreate.as_view(), name='cursos'),
     path('cursos/detail/<int:pk>/', CursoRetrieveUpdateDestroy.as_view(), name='cursos-detail'),

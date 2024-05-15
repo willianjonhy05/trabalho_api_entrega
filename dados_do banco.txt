@@ -6,10 +6,10 @@ Senha: senha123
 
 
 
-CREATE ROLE gestoradmin WITH LOGIN SUPERUSER CREATEDB PASSWORD 'senha123';
+CREATE ROLE cenourauser WITH LOGIN SUPERUSER CREATEDB PASSWORD 'santander123';
 
-CREATE DATABASE escolalinguasdb WITH OWNER gestoradmin;
+CREATE DATABASE cenourasantanderdb WITH OWNER cenourauser;
 
-GRANT ALL PRIVILEGES ON DATABASE escolalinguasdb TO gestoradmin;
+GRANT ALL PRIVILEGES ON DATABASE cenourasantanderdb TO cenourauser;
 
 

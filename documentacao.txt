@@ -50,6 +50,20 @@
     - Deletar ok
 
 8 - Boletim
+    - Criar 
+    - Listar 
+    - Detalhar 
+    - Atualizar 
+    - Deletar 
 
 9 - Frequencia
+    - Criar 
+    - Listar 
+    - Detalhar 
+    - Atualizar 
+    - Deletar 
 
+AVANÇADO
+
+- Pesquisa da Matrícula por Aluno OK
+- Pesquisa de Disciplina por Professor 

@@ -38,6 +38,7 @@ class AlunoDetail(serializers.ModelSerializer):
 
 class ProfessorSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
+    disciplinas = serializers.SerializerMethodField()
     class Meta:        
         model = Professor
         fields = ['nome', 'email', 'telefone', 'link']
@@ -46,6 +47,12 @@ class ProfessorSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request is not None:
             return request.build_absolute_uri(reverse('professor-detail', kwargs={'pk': obj.pk}))
+        return None
+    
+    def get_disciplinas(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(reverse('professor-disciplinas', kwargs={'pk': obj.pk}))
         return None
     
 class ProfessorDetail(serializers.ModelSerializer):
@@ -128,7 +135,7 @@ class ListaMatriculas(serializers.ModelSerializer):
 class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula        
-        exclude = ['frequencia', 'boletim']
+        fields = ['codigo', 'aluno', 'curso', 'status']
 
       
 ############################ Serializers do Aula ###################################  
@@ -150,7 +157,7 @@ class AulaSerializer(serializers.ModelSerializer):
 class AulaSerializerDois(serializers.ModelSerializer):
     class Meta:
         model = Aula
-        fields = '__all__'
+        fields = ['disciplina', 'data', 'sala', 'observacoes']
            
 
 ############################ Serializers da Disciplina ################################
@@ -178,7 +185,6 @@ class DisciplinaList(serializers.ModelSerializer):
 ############################ Serializers do Boletim ################################### 
 
 class BoletimEscolarSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = BoletimEscolar
         fields = '__all__'

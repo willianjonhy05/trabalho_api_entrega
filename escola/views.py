@@ -134,11 +134,11 @@ class MatriculaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class ListaAulasView(viewsets.ModelViewSet):
     queryset = Aula.objects.all()
-    serializer_class = AulaSerializer
+    serializer_class = AulaSerializerDois
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['nome', ]
     search_fields = ['nome', ]
-    filterset_fields = ['curso', ]
+    
     
 class CriarAula(generics.CreateAPIView):
     queryset = Aula.objects.all()
@@ -163,7 +163,7 @@ class ListarDisciplinas(viewsets.ModelViewSet):
 
 class NovaDisciplina(generics.CreateAPIView):
     queryset = Disciplina.objects.all()
-    serializer_class = DisciplinaList
+    serializer_class = DisciplinaSerializer
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)        
@@ -173,14 +173,13 @@ class DisciplinaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = AulaSerializerDois
 
-
 class DisciplinaPorProfessor(generics.ListAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaList
     
     def get_queryset(self):
-        disciplina_pk = self.kwargs['pk']
-        profs = Professor.objects.get(id=disciplina_pk)
+        professor_pk = self.kwargs['pk']
+        profs = Professor.objects.get(id=professor_pk)
         disciplinas = Disciplina.objects.filter(professor=profs)        
         return disciplinas
 
