@@ -188,8 +188,10 @@ class BoletimEscolarSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoletimEscolar
         fields = '__all__'
-        
 
+
+
+############################ Serializers do Frequência################################### 
         
 
 class FrequenciaEscolarSerilizer(serializers.ModelSerializer):

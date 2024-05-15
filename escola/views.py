@@ -185,7 +185,28 @@ class DisciplinaPorProfessor(generics.ListAPIView):
 
 ############# Views referente a Boletim ######################
 
+class BoletimEscolarListCreate(generics.ListCreateAPIView):
+    queryset = BoletimEscolar.objects.all()
+    serializer_class = BoletimEscolarSerializer
+    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    # ordering_fields = ['nome', ]
+    # search_fields = ['nome',]
 
+class BoletimEscolarRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BoletimEscolar.objects.all()
+    serializer_class = BoletimEscolarSerializer
 
 
 ############# Views referente a Frequencia ######################
+
+class FrequenciaEscolarListCreate(generics.ListCreateAPIView):
+    queryset = FrequenciaEscolar.objects.all()
+    serializer_class = FrequenciaEscolarSerilizer
+    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    # ordering_fields = ['nome', ]
+    # search_fields = ['nome',]
+
+class FrequenciaEscolarRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FrequenciaEscolar.objects.all()
+    serializer_class = FrequenciaEscolarSerilizer
+

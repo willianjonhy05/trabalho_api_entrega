@@ -28,6 +28,12 @@ urlpatterns = [
     path('disciplina/nova/', NovaDisciplina.as_view(), name='nova-disciplina'),
     path('disciplinas/todas/', ListarDisciplinas.as_view({'get': 'list'}), name='lista-disciplina'),
     path('disciplinas/detail/<int:pk>/', DisciplinaRetrieveUpdateDestroy.as_view(), name='detail-disciplina'),
+
+    path('boletim/', BoletimEscolarListCreate.as_view(), name='boletim-create-list'),
+    path('boletim/detail/<int:pk>/', BoletimEscolarRetrieveUpdateDestroy.as_view(), name='boletim-detail'),
+
+    path('frequencia/', FrequenciaEscolarListCreate.as_view(), name='frequencia-create-list'),
+    path('frequencia/detail/<int:pk>/', FrequenciaEscolarRetrieveUpdateDestroy.as_view(), name='frequencia-detail'),
     
     
     
