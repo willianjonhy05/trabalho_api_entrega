@@ -1,6 +1,7 @@
 from .models import *
 from rest_framework import serializers
 from django.urls import reverse
+from .models import Matricula
 
 ############# Serializers referente ao Aluno ######################
 class AlunoSerializer(serializers.ModelSerializer):
@@ -97,7 +98,6 @@ class FrequenciaEscolarSerilizer(serializers.ModelSerializer):
         
 ############# Serializers da Matrícula ###################### 
 
-from .models import Matricula
 
 class MatriculaSerializer(serializers.ModelSerializer):    
     class Meta:
