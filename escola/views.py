@@ -22,6 +22,8 @@ def getRoutes(request):
     "Cadastrar Aula": "http://127.0.0.1:8000/aulas/nova/",
     "Disciplinas": "http://127.0.0.1:8000/disciplina/todas/",
     "Cadastrar Disciplina": "http://127.0.0.1:8000/disciplina/nova/",
+    "Listar/Cadastrar Boletim": "http://127.0.0.1:8000/boletim/",
+    "Listar/Cadastrar Frequência": "http://127.0.0.1:8000/frequencia/",
 
 
 }
