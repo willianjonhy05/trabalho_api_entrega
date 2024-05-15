@@ -169,3 +169,11 @@ class NovaDisciplina(generics.CreateAPIView):
 class DisciplinaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = AulaSerializerDois
+    
+
+############# Views referente a Boletim ######################
+
+
+
+
+############# Views referente a Frequencia ######################

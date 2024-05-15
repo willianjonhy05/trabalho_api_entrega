@@ -43,6 +43,11 @@
     - Deletar 
 
 7 - Matrícula
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
 
 8 - Boletim
 
