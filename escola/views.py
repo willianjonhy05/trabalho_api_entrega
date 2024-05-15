@@ -155,12 +155,15 @@ class AulaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 ############# Views referente a Disciplina ######################
 
 class ListarDisciplinas(viewsets.ModelViewSet):
-    ...
-
+    serializer_class = DisciplinaSerializer
+    queryset = Disciplina.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['nome', ]
+    search_fields = ['nome', ]
 
 class NovaDisciplina(generics.CreateAPIView):
     queryset = Disciplina.objects.all()
-    serializer_class = DisciplinaSerializer
+    serializer_class = DisciplinaList
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)        
@@ -169,7 +172,17 @@ class NovaDisciplina(generics.CreateAPIView):
 class DisciplinaRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = AulaSerializerDois
+
+
+class DisciplinaPorProfessor(generics.ListAPIView):
+    queryset = Disciplina.objects.all()
+    serializer_class = DisciplinaList
     
+    def get_queryset(self):
+        disciplina_pk = self.kwargs['pk']
+        profs = Professor.objects.get(id=disciplina_pk)
+        disciplinas = Disciplina.objects.filter(professor=profs)        
+        return disciplinas
 
 ############# Views referente a Boletim ######################
 

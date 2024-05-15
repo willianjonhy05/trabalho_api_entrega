@@ -36,11 +36,11 @@
     - Deletar ok
 
 6 - Disciplina
-    - Criar 
-    - Listar 
-    - Detalhar 
-    - Atualizar
-    - Deletar 
+    - Criar ok
+    - Listar ok
+    - Detalhar ok
+    - Atualizar ok
+    - Deletar ok
 
 7 - Matrícula
     - Criar ok
